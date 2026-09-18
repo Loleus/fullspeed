@@ -16,19 +16,26 @@ const VERSION = "fullspeed-v1";
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
+/**
+ * Published address of the game. The shell is precached with ABSOLUTE URLs
+ * (specifier relative to this worker would also work, but absolute keeps the
+ * cache entries identical no matter which scope the worker was registered in).
+ */
+const SITE_URL = "https://loleus.github.io/fullspeed/";
+
 const SHELL_ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./favicon.svg",
-  "./icons/icon-64.svg",
-  "./icons/icon-128.svg",
-  "./icons/icon-192.svg",
-  "./icons/icon-256.svg",
-  "./icons/icon-512.svg",
-  "./icons/apple-touch-icon-180.png",
-  "./icons/icon-maskable-512.png",
-  "./og-image.png",
+  SITE_URL,
+  `${SITE_URL}index.html`,
+  `${SITE_URL}manifest.webmanifest`,
+  `${SITE_URL}favicon.svg`,
+  `${SITE_URL}icons/icon-64.svg`,
+  `${SITE_URL}icons/icon-128.svg`,
+  `${SITE_URL}icons/icon-192.svg`,
+  `${SITE_URL}icons/icon-256.svg`,
+  `${SITE_URL}icons/icon-512.svg`,
+  `${SITE_URL}icons/apple-touch-icon-180.png`,
+  `${SITE_URL}icons/icon-maskable-512.png`,
+  `${SITE_URL}og-image.png`,
 ];
 
 self.addEventListener("install", (event) => {
@@ -95,7 +102,12 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
-  const sameOrigin = url.origin === self.location.origin;
+  const siteOrigin = new URL(SITE_URL).origin;
+  // the game itself may be served from the published host (GitHub Pages) or,
+  // during development / in a portal, from the current origin – both count as
+  // "our own files"
+  const sameOrigin =
+    url.origin === self.location.origin || (url.origin === siteOrigin && url.pathname.startsWith(new URL(SITE_URL).pathname));
 
   // page navigations: always try the network first, fall back to the shell
   if (request.mode === "navigate") {
@@ -117,8 +129,12 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // fonts + music from GitHub / Google Fonts
-  if (/fonts\.(googleapis|gstatic)\.com|raw\.githubusercontent\.com/.test(url.host)) {
+  // fonts + the soundtrack
+  if (
+    /fonts\.(googleapis|gstatic)\.com|raw\.githubusercontent\.com/.test(url.host) ||
+    url.pathname.endsWith("assets/audio/music.ogg") ||
+    url.pathname.endsWith("assets/fonts/FasterOne-Regular.woff2")
+  ) {
     event.respondWith(cacheFirst(request, RUNTIME_CACHE).catch(() => fetch(request)));
   }
 });
