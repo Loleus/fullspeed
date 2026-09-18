@@ -11,14 +11,24 @@
     <meta name="theme-color" content="#0f2609" />
     <meta name="color-scheme" content="dark" />
 
-    <!-- PWA -->
+    <!-- PWA. Icons are the game's own car + road (public/icons/*.svg, scalable),
+         plus rasters for the platforms that insist on bitmaps. -->
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="icon" type="image/png" href="./icon-512.png" />
-    <link rel="apple-touch-icon" href="./icon-512.png" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="64x64" href="./icons/icon-64.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="128x128" href="./icons/icon-128.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="192x192" href="./icons/icon-192.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="256x256" href="./icons/icon-256.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="512x512" href="./icons/icon-512.svg" />
+    <link rel="mask-icon" href="./favicon.svg" color="#d62828" />
+    <!-- iOS home screen: PNG only, so use the raster set -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon-180.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./icons/apple-touch-icon-180.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="FULL SPEED" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="FULL SPEED" />
 
     <!-- Open Graph / Twitter. Replace the og:url / og:image values with the
          final absolute URLs of the deployed site – most crawlers ignore

@@ -20,7 +20,14 @@ const SHELL_ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icon-512.png",
+  "./favicon.svg",
+  "./icons/icon-64.svg",
+  "./icons/icon-128.svg",
+  "./icons/icon-192.svg",
+  "./icons/icon-256.svg",
+  "./icons/icon-512.svg",
+  "./icons/apple-touch-icon-180.png",
+  "./icons/icon-maskable-512.png",
   "./og-image.png",
 ];
 
