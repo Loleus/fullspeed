@@ -36,6 +36,8 @@ const SHELL_ASSETS = [
   `${SITE_URL}icons/apple-touch-icon-180.png`,
   `${SITE_URL}icons/icon-maskable-512.png`,
   `${SITE_URL}og-image.png`,
+  // the backdrop photo (served from the published site; the raw.githubusercontent
+  // fallback used before deployment is cached at runtime by the rule below)
   `${SITE_URL}assets/img/bcg.jpg`,
 ];
 
