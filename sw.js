@@ -36,6 +36,7 @@ const SHELL_ASSETS = [
   `${SITE_URL}icons/apple-touch-icon-180.png`,
   `${SITE_URL}icons/icon-maskable-512.png`,
   `${SITE_URL}og-image.png`,
+  `${SITE_URL}assets/img/bcg.jpg`,
 ];
 
 self.addEventListener("install", (event) => {
